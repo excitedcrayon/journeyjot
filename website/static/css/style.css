@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+html
+,body{
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    overscroll-behavior: unset;
+}
+:root{
+    --color-red: #9F741B;
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+    --color-light-grey: #EEEEEE;
+    --color-dark-grey: #CCCCCC;
+    --color-red: #CC0000;
+
+    --inset-grey: #CECECE;
+
+    --percent: 1%;
+    --pixel: 1px;
+
+    --min-space: 0.25rem;
+    --medium-space: 0.5rem;
+    --max-space: 1rem;
+
+    --opacity-none: 0;
+    --opacity-dim: 0.5;
+    --opacity-full: 1;
+
+    --margin-centered: 0 auto;
+
+    --transition-fastest: 0.1s;
+    --transition-fast: 0.3s;
+    --transition-medium: 0.5s;
+    --transition-slow: 0.8s;
+    --transition-slowest: 1s;
+
+    --bg-light-grey: rgba(238,238,238,0.45);
+}
+#pageWrapper{
+    display: -ms-flex;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+#pageWrapper > section{
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    width: 100%;
+}
+@media (min-width: 768px){
+    #pageWrapper .menu {
+        max-width: calc(var(--percent)  * 20);
+        border-right: 1px solid var(--color-light-grey);
+    }
+    #pageWrapper .content{
+        max-width: calc(var(--percent)  * 70);
+    }
+    header,
+    nav{
+        min-height: 100vh;
+    }
+    nav{
+        display: grid;
+        align-items: center;
+    }
+}

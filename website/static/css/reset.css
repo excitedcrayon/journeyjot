@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+*::before,
+*:after{
+    margin: inherit;
+    padding: inherit;
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+}
+a,
+button{
+    outline: none;
+    border: 0;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:hover,
+button:hover{
+    text-decoration: none;
+}
+
+a,
+button,
+small,
+span,
+sup,
+strong,
+audio{
+    display: inline-block;
+}
+audio,
+video,
+img,
+svg{
+    user-select: none;
+    width: 100%;
+    max-width: 100%;
+}
+ul,
+ol{
+    list-style: none;
+    list-style-type: none;
+}

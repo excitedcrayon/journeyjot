@@ -1,0 +1,23 @@
+header svg{
+    display: block;
+    margin: var(--margin-centered);
+    max-width: calc(var(--pixel) * 30);
+    max-height: calc(var(--pixel) * 30);
+}
+header ul li{
+    padding: calc(var(--pixel) * 8);
+}
+header .menu_link {
+    color: var(--color-black);
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(5, 1fr);
+}
+header .menu_link svg {
+    grid-column: span 1;
+}
+header .menu_link span {
+    grid-column: span 4;
+    padding: 0 calc(var(--percent) * 5);
+    transition: var(--transition-medium) ease;
+}
