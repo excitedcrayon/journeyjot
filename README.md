@@ -36,10 +36,10 @@ Now what is the difference between a project and an app?
 * In summary, you can have only **1** project but **multiple** apps which achieve various functionalities
 
 ## Configuring some folders
-* We need to configure some folders for use with our app (website).
-```HTML
-    <strong>static</strong> - will hold the base template to be inherited by all other templates
-    <strong>media</strong> - will house all the uploaded media files from the web app
+* We need to configure some folders for use with our app (website). **NOTE** - media folder will be created automatically once you start uploading files. You can manually create the static folder under the app (i.e website > static)
+```
+    static - will hold the base template to be inherited by all other templates
+    media - will house all the uploaded media files from the web app
 ```
 * Setup **static** folder (projects > settings.py)
 ```text
@@ -63,3 +63,4 @@ Now what is the difference between a project and an app?
     MEDIA_URL= "/media/"
 ```
 <img src="readme/static_media.png">
+<img src="readme/static_folder.png">
