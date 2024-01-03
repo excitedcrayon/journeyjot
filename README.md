@@ -1,6 +1,9 @@
 # JourneyJot
 Python Django Based Application
 
+## Basic Overview Of Project Scope
+<img src="readme/project_scope.png"> 
+
 ## Steps to setting up the project
 * Create your virtual environment (to install django and other packages)
 ```
@@ -98,6 +101,3 @@ Now what is the difference between a project and an app?
     .....
 
 ```
-
-## Basic Overview Of Project Scope
-<img src="readme/project_scope.png"> 
