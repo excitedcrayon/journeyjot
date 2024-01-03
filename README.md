@@ -37,9 +37,9 @@ Now what is the difference between a project and an app?
 
 ## Configuring some folders
 * We need to configure some folders for use with our app (website).
-```html
-    <strong>static<strong> - will hold the base template to be inherited by all other templates
-    <strong>media<strong> - will house all the uploaded media files from the web app
+```HTML
+    <strong>static</strong> - will hold the base template to be inherited by all other templates
+    <strong>media</strong> - will house all the uploaded media files from the web app
 ```
 * Setup **static** folder (projects > settings.py)
 ```text
