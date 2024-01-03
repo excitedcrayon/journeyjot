@@ -64,3 +64,6 @@ Now what is the difference between a project and an app?
 ```
 <img src="readme/static_media.png">
 <img src="readme/static_folder.png">
+
+## Basic Overview Of Project Scope
+<img src="readme/project_scope.png"> 
