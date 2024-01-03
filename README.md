@@ -35,6 +35,20 @@ Now what is the difference between a project and an app?
 * The **app** is a component part of the application where you can configure models, views and templates.
 * In summary, you can have only **1** project but **multiple** apps which achieve various functionalities
 
+## Some commands to remember
+```
+    python manage.py createsuperuser
+    python manage.py makemigrations
+    python manage.py migrate
+    python manage.py runserver
+```
+```
+    python3 manage.py createsuperuser
+    python3 manage.py makemigrations
+    python3 manage.py migrate
+    python3 manage.py runserver
+```
+
 ## Configuring some folders
 * We need to configure some folders for use with our app (website). **NOTE** - media folder will be created automatically once you start uploading files. You can manually create the static folder under the app (i.e website > static)
 ```
@@ -64,6 +78,26 @@ Now what is the difference between a project and an app?
 ```
 <img src="readme/static_media.png">
 <img src="readme/static_folder.png">
+
+## Database Configuration 
+* You can configure your DB Connection in project > settings.py
+```
+    .....
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'DB_NAME',
+            'USER': 'DB_USERNAME',
+            'PASSWORD': 'DB_PASSWORD',
+            'HOST': 'localhost',
+            'PORT': '3306'
+        }
+    }
+
+    .....
+
+```
 
 ## Basic Overview Of Project Scope
 <img src="readme/project_scope.png"> 
