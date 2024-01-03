@@ -7,6 +7,9 @@ header svg{
 header ul li{
     padding: calc(var(--pixel) * 8);
 }
+header .menu_options ul {
+    padding: calc(var(--percent) * 10) 0;
+}
 header .menu_link {
     color: var(--color-black);
     display: grid;
