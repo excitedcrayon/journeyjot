@@ -44,7 +44,22 @@ header .menu_top .menu_burger_icon > div{
     max-width: var(--icon-size);
     height: calc(var(--pixel) * 3);
     background: var(--color-black);
-    margin: calc(var(--pixel) * 4) 0;
+    margin: calc(var(--pixel) * 3) 0;
+    opacity: var(--opacity-full);
+    transform: rotate(0deg) translateY(0);
+    transform-origin: center;
+    transition: var(--transition-medium) ease;
+}
+header .menu_top .menu_burger_icon.icon_clicked > div:nth-child(1){
+    transform: rotate(45deg) translateY(13px);
+    transition-delay: var(--transition-fastest);
+}
+header .menu_top .menu_burger_icon.icon_clicked > div:nth-child(2){
+    opacity: var(--opacity-none);
+}
+header .menu_top .menu_burger_icon.icon_clicked > div:nth-child(3){
+    transform: rotate(-45deg) translateY(-13px);
+    transition-delay: var(--transition-fastest);
 }
 header ul li{
     padding: calc(var(--pixel) * 8);
