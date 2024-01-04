@@ -1,6 +1,10 @@
 .menu{
     position: sticky;
     top: 0;
+    z-index: calc(var(--value) * 20000);
+}
+header nav{
+    background: var(--color-white);
 }
 header svg{
     display: block;
@@ -130,7 +134,7 @@ header .menu_bottom small{
 }
 @media (min-width: 768px){
     header .menu_top a{
-        text-align: unset;
+        /* text-align: unset; */
         grid-column: span 4;
     }
     header .menu_top .menu_burger_icon{

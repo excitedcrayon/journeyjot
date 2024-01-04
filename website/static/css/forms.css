@@ -1,0 +1,76 @@
+.form_wrapper{
+    display: block;
+    margin: var(--margin-centered);
+    width: calc(var(--percent) * 100);
+    max-width: calc(var(--pixel) * 300);
+}
+.form_wrapper form > div:not(.form_button){
+    display: -ms-flex;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin-bottom: calc(var(--max-space));
+}
+.form_wrapper form > div label,
+.form_wrapper form > input[type="text"],
+.form_wrapper form > input[type="email"],
+.form_wrapper form > input[type="password"],
+.form_wrapper form > input[type="file"],
+.form_wrapper form > textarea{
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    width: 100%;
+}
+.form_wrapper form > div label{
+    font-weight: 300;
+    margin-bottom: calc(var(--pixel) * 10);
+}
+.form_wrapper input[type="text"],
+.form_wrapper input[type="email"],
+.form_wrapper input[type="password"],
+.form_wrapper textarea{
+    outline: none;
+    border: 1px solid var(--color-dark-grey);
+    padding: calc(var(--pixel) * 9);
+    border-radius: var(--min-space);
+    background: var(--color-white);
+    transition: var(--transition-fast) linear;
+    font-size: var(--max-space);
+    font-weight: 300;
+}
+.form_wrapper textarea{
+    resize: none;
+}
+.form_wrapper input[type="text"]:focus,
+.form_wrapper input[type="email"]:focus,
+.form_wrapper input[type="password"]:focus,
+.form_wrapper textarea:focus{
+    background: var(--bg-light-grey);
+}
+.form_button{
+    display: -ms-flex;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: calc(var(--max-space) * 2) 0;
+}
+.form_button > button,
+.form_button > a{
+    -ms-flex: 1 0 auto;
+    flex: 1 auto;
+    margin-bottom: calc(var(--pixel) * 10);
+}
+@media (min-width: 600px){
+    .form_button > button,
+    .form_button > a{
+        -ms-flex: unset;
+        flex: unset;
+        margin-bottom: unset;
+        margin-right: calc(var(--pixel) * 10);
+    }
+}
+@media (min-width: 768px){
+    .form_wrapper{
+        max-width: calc(var(--pixel) * 500);
+    }
+}

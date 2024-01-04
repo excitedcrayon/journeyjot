@@ -1,0 +1,17 @@
+{% extends 'base/template.html' %}
+{% block title %} Login {% endblock title %}
+{% block body_data %}
+    <div class="content_header"><h1>Login</h1></div>
+    <div class="inner_content inner_content_form">
+        <div class="form_wrapper">
+            <form method="POST">
+                {% csrf_token %}
+                {{ loginForm.as_div  }}
+                <div class="form_button">
+                    <button class="btn" type="submit">Login</button>
+                    <a class="btn" href="{% url 'register' %}">Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock body_data %}

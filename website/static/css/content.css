@@ -1,3 +1,23 @@
 .content{
+   background: var(--color-white);
+}
+.content_header{
+    min-height: calc(var(--pixel) * 150);
+    display: grid;
+    justify-content: center;
+    place-items: center;
+}
+.content_header h1{
+    font-size: calc(var(--max-space) * 2);
+}
+.inner_content{
     padding: calc(var(--max-space) * 2);
+    min-height: calc(var(--pixel) * 700);
+}
+.inner_content_form{
+    display: grid;
+    place-items: center;
+}
+.inner_content_bg{
+    position: relative;
 }
