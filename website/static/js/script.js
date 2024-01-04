@@ -8,6 +8,7 @@ const animateMenuIconAndNavigation = () => {
 
     const menuBurgerIcon = document.querySelector('.menu_burger_icon');
     const nav = document.querySelector('nav');
+    const content = document.querySelector('.content');
 
     if ( menuBurgerIcon != undefined ){
 
@@ -26,6 +27,8 @@ const animateMenuIconAndNavigation = () => {
                 nav.style.maxHeight = `${nav.scrollHeight}px`;
                 nav.style.paddingBottom = `${parseInt(navMobilePadding)}rem`;
             }
+
+            document.body.classList.toggle('menu_active');
         });
     }
 }

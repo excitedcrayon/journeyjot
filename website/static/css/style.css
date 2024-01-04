@@ -8,6 +8,10 @@ html
     scroll-behavior: smooth;
     overscroll-behavior: unset;
 }
+body.menu_active{
+    height: 100vh;
+    overflow: hidden;
+}
 :root{
     --color-red: #9F741B;
     --color-black: #000000;

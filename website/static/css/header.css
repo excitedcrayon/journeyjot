@@ -1,3 +1,7 @@
+.menu{
+    position: sticky;
+    top: 0;
+}
 header svg{
     display: block;
     margin: var(--margin-centered);
@@ -134,6 +138,8 @@ header .menu_bottom small{
     }
     header{
         min-height: 100vh;
+        position: sticky;
+        top: 0;
     }
     nav{
         display: grid;
