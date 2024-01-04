@@ -62,6 +62,26 @@ html
         max-width: calc(var(--percent)  * 70);
     }
 }
+@media only screen and (max-width: 1024px) and (orientation: landscape){
+
+    header{
+        min-height: unset !important;
+    }
+
+    header .menu_top .menu_burger_icon{
+        display: grid !important;
+    }
+
+    header .menu_top a{
+        grid-column: span 3 !important;
+        text-align: center !important;
+    }
+
+    #pageWrapper .menu,
+    #pageWrapper .content {
+        max-width: calc(var(--percent)  * 100);
+    }
+}
 @media (min-width: 1100px){
     #pageWrapper .menu {
         max-width: calc(var(--percent)  * 20);
