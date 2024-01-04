@@ -1,0 +1,3 @@
+.content{
+    padding: calc(var(--max-space) * 2);
+}
