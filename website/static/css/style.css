@@ -12,6 +12,12 @@ body.menu_active{
     height: 100vh;
     overflow: hidden;
 }
+::-webkit-scrollbar{
+    width: 5px;
+}
+::-webkit-scrollbar-thumb{
+    background: #222;
+}
 :root{
     --color-red: #9F741B;
     --color-black: #000000;
@@ -21,6 +27,9 @@ body.menu_active{
     --color-red: #CC0000;
 
     --inset-grey: #CECECE;
+
+    --alert-warning: #FEFFCC;
+    --alert-danger: pink;
 
     --percent: 1%;
     --pixel: 1px;

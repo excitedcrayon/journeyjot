@@ -1,5 +1,6 @@
 .content{
    background: var(--color-white);
+   padding-bottom: calc(var(--max-space) * 5);
 }
 .content_header{
     min-height: calc(var(--pixel) * 150);

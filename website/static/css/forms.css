@@ -60,6 +60,42 @@
     flex: 1 auto;
     margin-bottom: calc(var(--pixel) * 10);
 }
+#id_username_helptext{
+    display: none;
+}
+[id*="id_password"]{
+    margin: calc(var(--pixel) * 10) 0;
+    padding: var(--medium-space);
+    border-radius: var(--min-space);
+    background: var(--alert-warning);
+}
+[id*="id_password"] ul{
+    counter-reset: help-counter;
+}
+[id*="id_password"] ul li{
+    margin-bottom: calc(var(--pixel) * 5);
+    position: relative;
+}
+[id*="id_password"] ul li::before {
+    counter-increment: help-counter;
+    content: counter(help-counter);
+    width: var(--icon-size);
+    height: var(--icon-size);
+    display: inline-block;
+    text-align: center;
+    color: var(--color-white);
+    font-weight: 600;
+    background: var(--color-black);
+    margin-right: calc(var(--pixel) * 5);
+    border-radius: calc(var(--percent) * 50);
+}
+.errorlist{
+    color: var(--color-red);
+    margin: calc(var(--pixel) * 10) 0;
+    padding: var(--medium-space);
+    border-radius: var(--min-space);
+    background: var(--alert-danger);
+}
 @media (min-width: 600px){
     .form_button > button,
     .form_button > a{
