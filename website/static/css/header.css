@@ -1,14 +1,61 @@
 header svg{
     display: block;
     margin: var(--margin-centered);
-    max-width: calc(var(--pixel) * 30);
-    max-height: calc(var(--pixel) * 30);
+    max-width: var(--icon-size);
+    max-height: var(--icon-size);
+}
+header .menu_top{
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(5, 1fr);
+    padding: calc(var(--pixel) * 8);
+    position: sticky;
+    top: 0;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-dark-grey);
+    z-index: calc(var(--value) * 2000);
+}
+header .menu_top .menu_burger_icon{
+    user-select: none;
+    cursor: pointer;
+    grid-column: span 1;
+    display: grid;
+    place-items: center;
+}
+header .menu_top a{
+    text-align: center;
+    grid-column: span 3;
+    color: var(--color-black);
+    font-family: 'Long Cang', cursive;
+    font-size: calc(var(--max-space) * 1.5);
+    padding: 0 calc(var(--percent) * 5);
+    transition: var(--transition-medium) linear;
+}
+header .menu_top a:hover{
+    color: var(--color-red);
+}
+header .menu_search_icon{
+    grid-column: span 1;
+    display: grid;
+    justify-content: center;
+}
+header .menu_top .menu_burger_icon > div{
+    width: 100%;
+    max-width: var(--icon-size);
+    height: calc(var(--pixel) * 3);
+    background: var(--color-black);
+    margin: calc(var(--pixel) * 4) 0;
 }
 header ul li{
     padding: calc(var(--pixel) * 8);
+    transition: var(--transition-medium) ease;
+}
+header ul li:hover{
+    background: var(--bg-light-grey);
 }
 header .menu_options ul {
     padding: calc(var(--percent) * 10) 0;
+    border-top: 1px solid var(--bg-light-grey);
 }
 header .menu_link {
     color: var(--color-black);
@@ -18,9 +65,47 @@ header .menu_link {
 }
 header .menu_link svg {
     grid-column: span 1;
+    position: relative;
+    top: 0;
 }
 header .menu_link span {
     grid-column: span 4;
     padding: 0 calc(var(--percent) * 5);
     transition: var(--transition-medium) ease;
+    text-indent: 0;
+}
+header ul li:hover .menu_link span{
+    color: var(--color-red);
+    text-indent: calc(var(--pixel) * 10);   
+}
+header .menu_bottom{
+    user-select: none;
+    display: grid;
+    justify-content: center;
+}
+header .menu_bottom small{
+    color: var(--color-dark-grey);
+}
+@media (max-width: 767px){
+    nav{
+        max-height: 0;
+        overflow: hidden;
+        transition: var(--transition-slow) linear;
+    }
+}
+@media (min-width: 768px){
+    header .menu_top a{
+        text-align: unset;
+        grid-column: span 4;
+    }
+    header .menu_top .menu_burger_icon{
+        display: none !important;
+    }
+    header{
+        min-height: 100vh;
+    }
+    nav{
+        display: grid;
+        align-items: center;
+    }
 }
