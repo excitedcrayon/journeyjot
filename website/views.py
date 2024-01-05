@@ -3,8 +3,13 @@ from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import default_storage
+from django.core import serializers
+from django.http import HttpResponse
+from django.contrib.auth.models import User
 from . forms import RegisterUserForm, LoginUserForm, UploadForm
 from . models import Post, Uploads
+from itertools import chain
+import json
 
 # homepage
 def home(request):
@@ -122,3 +127,13 @@ def upload(request):
 @login_required(login_url='login')
 def profile(request):
     return render(request, 'pages/profile.html')
+
+def api_profile(request):
+    user_id = request.user.id
+    posts = Post.objects.filter(uploader_id=user_id).select_related("uploader")
+    uploads = Uploads.objects.filter(uploader_id=user_id).select_related("uploader")
+
+    combined_data = list(chain(posts, uploads))
+    json_data = serializers.serialize('json', combined_data)
+
+    return HttpResponse(json_data, content_type="application/json;charset=UTF-8")

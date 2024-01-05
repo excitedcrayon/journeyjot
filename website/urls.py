@@ -12,5 +12,7 @@ urlpatterns = [
     
     path('upload', views.upload, name="upload"),
     
-    path('profile', views.profile, name="profile")
+    path('profile', views.profile, name="profile"),
+    
+    path('api-profile', views.api_profile, name="api-profile")
 ]

@@ -6,6 +6,10 @@ window.addEventListener('DOMContentLoaded', () => {
     validateUploadForm();
 });
 
+const Constants = {
+    URL: location.origin
+}
+
 const animateMenuIconAndNavigation = () => {
 
     const menuBurgerIcon = document.querySelector('.menu_burger_icon');
@@ -67,4 +71,8 @@ const validateUploadForm = () => {
             //e.preventDefault();
         });
     }
+}
+
+const profileApiData = () => {
+
 }

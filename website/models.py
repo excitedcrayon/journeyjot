@@ -30,4 +30,4 @@ class Uploads(models.Model):
     file_size = models.CharField(max_length=255, null=False)
     file_path = models.TextField(null=False)
     date_created = models.DateTimeField(auto_now_add=True)
-    file_status = models.IntegerField(choices=upload_status_options, default=1)
+    file_status = models.IntegerField(choices=upload_status_options, default=1) 
