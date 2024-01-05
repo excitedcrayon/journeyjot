@@ -3,6 +3,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     animateMenuIconAndNavigation();
     animateSearchForm();
+    validateUploadForm();
 });
 
 const animateMenuIconAndNavigation = () => {
@@ -48,6 +49,22 @@ const animateSearchForm = () => {
         searchFormCloseButton.addEventListener('click', () => {
             searchForm.classList.remove('active_search_form');
             searchFormInput.value = '';
+        });
+    }
+}
+
+const validateUploadForm = () => {
+    const uploadForm = document.querySelector('form#uploadForm');
+    const uploadFormButton = document.querySelector('form#uploadForm button[type="submit"]');
+    const uploadFile = document.querySelector('[name="file"]');
+
+    if ( uploadFormButton != undefined ) {
+        uploadFile.addEventListener('change', (e) => {
+            console.log(e.target.files);
+        });
+
+        uploadFormButton.addEventListener('click', (e) => {
+            //e.preventDefault();
         });
     }
 }

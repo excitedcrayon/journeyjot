@@ -20,3 +20,7 @@ class LoginUserForm(forms.Form):
     password = forms.CharField(widget=PasswordInput(), max_length=100)
 
 
+class UploadForm(forms.Form):
+    title = forms.CharField(widget=TextInput(), max_length=255)
+    description = forms.CharField(widget=Textarea(), required=False)
+    file = forms.FileField(required=False)

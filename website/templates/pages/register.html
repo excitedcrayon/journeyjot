@@ -3,15 +3,22 @@
 {% block body_data %}
     <div class="content_header"><h1>Register</h1></div>
     <div class="inner_content inner_content_form">
-        <div class="form_wrapper">
-            <form method="POST">
-                {% csrf_token %}
-                {{ registerForm.as_div  }}
-                <div class="form_button">
-                    <button class="btn" type="submit">Register</button>
-                    <a class="btn" href="{% url 'login' %}">Login</a>
-                </div>
-            </form>
-        </div>
+        {% if request.user.is_authenticated %}
+            <div>
+                <p>You are already logged in</p>
+                <a class="btn" href="{% url '' %}" title="Home">Home</a>
+            </div>
+        {% else %}
+            <div class="form_wrapper">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ registerForm.as_div  }}
+                    <div class="form_button">
+                        <button class="btn" type="submit">Register</button>
+                        <a class="btn" href="{% url 'login' %}">Login</a>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
     </div>
 {% endblock body_data %}
