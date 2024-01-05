@@ -2,6 +2,7 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log('DOMContentLoaded');
 
     animateMenuIconAndNavigation();
+    animateSearchForm();
 });
 
 const animateMenuIconAndNavigation = () => {
@@ -28,7 +29,25 @@ const animateMenuIconAndNavigation = () => {
                 nav.style.paddingBottom = `${parseInt(navMobilePadding)}rem`;
             }
 
-            document.body.classList.toggle('menu_active');
+            document.body.classList.toggle('overflow_hidden');
+        });
+    }
+}
+
+const animateSearchForm = () => {
+    const searchForm = document.querySelector('.search_form');
+    const searchFormInput = document.querySelector('.search_form [name="search"]');
+    const menuSearchIconButton = document.querySelector('.menu_search_icon button');
+    const searchFormCloseButton = document.querySelector('.search_form_close_button button');
+
+    if ( menuSearchIconButton != undefined ) {
+        menuSearchIconButton.addEventListener('click', () => {
+            searchForm.classList.add('active_search_form');
+        });
+
+        searchFormCloseButton.addEventListener('click', () => {
+            searchForm.classList.remove('active_search_form');
+            searchFormInput.value = '';
         });
     }
 }

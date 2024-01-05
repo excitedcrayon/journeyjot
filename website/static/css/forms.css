@@ -96,6 +96,57 @@
     border-radius: var(--min-space);
     background: var(--alert-danger);
 }
+.search_form {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    padding: calc(var(--max-space) * 2);
+    background: var(--color-white);
+    z-index: calc(var(--value) * 100000);
+}
+.search_form.active_search_form{
+    display: block;
+}
+.search_form form {
+    display: block;
+    width: 100%;
+}
+.search_form_close_button {
+    display: grid;
+    justify-content: flex-end;
+}
+.search_form_close_button button {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    max-width: var(--icon-size);
+    max-height: var(--icon-size);
+    margin-bottom: calc(var(--max-space) * 2);
+}
+.search_form_close_button button svg{
+    width: inherit;
+    height: inherit;
+    max-width: var(--icon-size);
+    max-height: var(--icon-size);
+    transform: rotate(0deg);
+    transition: var(--transition-medium) ease;
+}
+.search_form_close_button button:hover svg{
+    transform: rotate(90deg);
+}
+.search_form form input[type="text"] {
+    outline: none;
+    border: 0;
+    border-bottom: 1px solid var(--color-light-grey);
+    display: inline-block;
+    width: 100%;
+    padding: var(--max-space);
+    font-size: var(--max-space);
+}
 @media (min-width: 600px){
     .form_button > button,
     .form_button > a{
