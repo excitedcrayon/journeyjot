@@ -16,5 +16,9 @@ urlpatterns = [
     
     path('profile/edit-post/<int:id>', views.profile_edit_post, name="edit-post"),
     
+    path('profile/archive-post/<int:id>', views.profile_archive_post, name="archive-post"),
+    
+    path('profile/restore-post/<int:id>', views.profile_restore_post, name="restore-post"),
+    
     path('api-profile', views.api_profile, name="api-profile")
 ]

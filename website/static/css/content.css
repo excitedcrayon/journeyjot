@@ -137,6 +137,12 @@
 .profile_data_title a:hover svg{
     transform: scale(0.7);
 }
+.profile_data_title small{
+    padding: var(--min-space) var(--max-space);
+    border-radius: calc(var(--pixel) * 40);
+    background: var(--alert-warning);
+    border: 1px solid var(--color-dark-grey);
+}
 .profile_data_row_content span{
     padding: var(--min-space) 0;
 }

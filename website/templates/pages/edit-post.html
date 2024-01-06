@@ -19,6 +19,11 @@
                 </div>
                 <div class="form_button">
                     <button class="btn" type="submit">Save</button>
+                    {% if post.post_status == 1 %}
+                        <a class="btn" href="/profile/archive-post/{{ post.id }}">Archive</a>
+                    {% else %}
+                        <a class="btn" href="/profile/restore-post/{{ post.id }}">Restore</a>
+                    {% endif %}
                     <a class="btn" href="{% url 'profile' %}">Cancel</a>
                 </div>
             </form>

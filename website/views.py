@@ -152,6 +152,26 @@ def profile_edit_post(request, id):
 
     return render(request, 'pages/edit-post.html', context=context)
 
+# profile archive post 
+@login_required(login_url='login')
+def profile_archive_post(request, id):
+
+    Post.objects.filter(id=id).update(
+        post_status=0
+    )
+
+    return redirect('profile')
+
+# profile restore post 
+@login_required(login_url='login')
+def profile_restore_post(request, id):
+
+    Post.objects.filter(id=id).update(
+        post_status=1
+    )
+
+    return redirect('profile')
+
 # api to get profile page data
 def api_profile(request):
 
