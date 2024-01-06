@@ -79,6 +79,10 @@ header ul li:hover{
 header ul li.active_link{
     background: var(--color-dark-grey);
 }
+header ul li.active_link svg circle, 
+header ul li.active_link svg path {
+    stroke: var(--color-red);
+}
 header .menu_options ul {
     padding: calc(var(--percent) * 10) 0;
     border-top: 1px solid var(--bg-light-grey);
@@ -93,6 +97,10 @@ header .menu_link svg {
     grid-column: span 1;
     position: relative;
     top: 0;
+}
+header .menu_link svg circle,
+header .menu_link svg path{
+    color: var(--color-black);
 }
 header .menu_link span {
     grid-column: span 4;
