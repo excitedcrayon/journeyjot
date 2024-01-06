@@ -1,13 +1,21 @@
 window.addEventListener('DOMContentLoaded', () => {
-    console.log('DOMContentLoaded');
 
     animateMenuIconAndNavigation();
     animateSearchForm();
     validateUploadForm();
+    profileApiData();
+    profileApiDataSearchFilter();
 });
 
 const Constants = {
-    URL: location.origin
+    URL: location.origin,
+    INTERVAL: 1000
+}
+
+const getGlobalUserId = () => {
+    if ( document.querySelector('[name="globalUserId"]') != undefined ) {
+        return document.querySelector('[name="globalUserId"]').value;
+    }
 }
 
 const animateMenuIconAndNavigation = () => {
@@ -75,4 +83,127 @@ const validateUploadForm = () => {
 
 const profileApiData = () => {
 
+    const profileUploadedData =  document.querySelector('.profile_uploaded_data');
+    const userId = getGlobalUserId();
+
+    let postPKMap = new Map();
+    let profileDataRow = undefined;
+
+    if ( profileUploadedData != undefined ) {
+
+        generatePageSpinner(profileUploadedData);
+
+        fetch(`${Constants.URL}/api-profile`)
+        .then(res => res.json())
+        .then(data => {
+
+            setTimeout(() => {
+
+                removePageSpinner(profileUploadedData);
+
+                for(let i = 0; i < data.length; i++){
+
+                    let model = data[i]['model'];
+    
+                    // title and description of posts
+                    if ( model.includes('post') ){
+    
+                        postPKMap.set(data[i]['pk'], data[i]['pk']);
+    
+                        profileDataRow = document.createElement('div');
+                        profileDataRow.className = 'profile_data_row';
+                        profileDataRow.innerHTML = `
+                            <div class="profile_data_row_content">
+                                <div class="profile_data_title">
+                                    <strong>${data[i]['fields']['title']}</strong>
+                                    <a href="/edit-post/${data[i]['pk']}" title="Edit post ${data[i]['fields']['title']}">
+                                        <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M14.4443 5.68747L5.44587 14.6859C4.78722 15.3446 4.26719 16.1441 4.10888 17.062C3.94903 17.9888 3.89583 19.139 4.44432 19.6875C4.99281 20.236 6.14299 20.1828 7.0698 20.0229C7.98772 19.8646 8.78722 19.3446 9.44587 18.6859L18.4443 9.68747M14.4443 5.68747C14.4443 5.68747 17.4443 2.68747 19.4443 4.68747C21.4443 6.68747 18.4443 9.68747 18.4443 9.68747M14.4443 5.68747L18.4443 9.68747" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                                ${data[i]['fields']['description'].length > 0 
+                                ? `<span>${data[i]['fields']['description'].length >= 100 ? `${data[i]['fields']['description'].substring(0,100)}...` : data[i]['fields']['description']}</span>`
+                                : ''}
+                            </div>
+                            <div class="profile_data_row_media"></div>
+                        `;
+    
+                        profileUploadedData.appendChild(profileDataRow);
+    
+                    }
+    
+                    // media of the post
+                    if ( model.includes('uploads') ) {
+    
+                        let postId = data[i]['fields']['post'];
+    
+                        if ( postId == postPKMap.get(postId) ) {
+    
+                            if ( data[i]['fields']['file_type'].includes('image') ) {
+                                let image = new Image();
+                                image.src = data[i]['fields']['file_path'];
+                                document.querySelector('.profile_data_row_media').appendChild(image);
+        
+                            } else if ( data[i]['fields']['file_type'].includes('video') ) {
+                                let video = document.createElement('video');
+                                videosrc = data[i]['fields']['file_path'];
+                                document.querySelector('.profile_data_row_media').appendChild(video);
+        
+                            }    
+                        } else {
+                            document.querySelector('.profile_data_row_media').innerHTML = '';
+                        }
+    
+                    }
+                }
+            }, Constants.INTERVAL);
+        })
+        .catch(err => console.log(err));
+    }
+}
+
+const profileApiDataSearchFilter = () => {
+    const profileSearchFilter = document.querySelector('[name="profileSearchFilter"]');
+
+    if ( profileSearchFilter != undefined ) {
+        
+        profileSearchFilter.addEventListener('keyup', () => {
+
+            if ( profileSearchFilter.value.length >= 2 ) {
+
+                let searchValue = profileSearchFilter.value.toLowerCase();
+
+                const profileDataRow = document.querySelectorAll('.profile_data_row');
+
+                profileDataRow.forEach(row => {
+                    if ( row.textContent.toLowerCase().indexOf(searchValue) > -1 ) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+
+            } else if ( profileSearchFilter.value.length === 0 ) {
+
+                const profileDataRow = document.querySelectorAll('.profile_data_row');
+
+                profileDataRow.forEach(row => {
+                    row.style.display = "";
+                });
+            }
+        });
+    }
+}
+
+const generatePageSpinner = (element) => {
+    return element.innerHTML = `
+        <div class="page_loader">
+            <div class="page_spinner"></div>
+        </div>
+    `;
+}
+
+const removePageSpinner = (element) => {
+    return element.innerHTML = ``;
 }

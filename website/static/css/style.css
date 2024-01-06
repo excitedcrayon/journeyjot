@@ -51,6 +51,7 @@ body.overflow_hidden{
     --transition-slow: 0.8s;
     --transition-slowest: 1s;
 
+    --focus-bg: rgba(238,238,238, 0.3);
     --bg-light-grey: rgba(238,238,238,0.45);
 
     --icon-size: calc(var(--pixel) * 30);

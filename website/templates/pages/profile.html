@@ -2,9 +2,21 @@
 {% block title %} Profile {% endblock title %}
 {% block body_data %}
     <div class="inner_content">
-        <section class="profile_top"></section>
+        <section class="profile_top">
+            {% if request.user.is_authenticated %}
+                <div class="profile_logged_in_as">
+                    <span>Currently logged in as <strong title="{{ user.get_username }}">{{ user.get_username }}</strong></span>
+                    <div class="profile_logged_in_buttons">
+                        <a class="btn" href="{% url 'logout' %}">Logout</a>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
         <div class="profile_bottom">
-            
+            <div class="profile_data_search_filter">
+                <input type="text" name="profileSearchFilter" placeholder="Filter....">
+            </div>
+            <div class="profile_uploaded_data"></div>
         </div>
     </div>
 {% endblock body_data %}

@@ -102,7 +102,7 @@ def upload(request):
 
                     #insert upload data into database
                     db_upload = Uploads.objects.create(
-                        post_id=last_post_id,
+                        post=last_post_id,
                         uploader_id=uploader_id,
                         file_name=file_name,
                         file_extension=file_extension,
@@ -129,11 +129,9 @@ def profile(request):
     return render(request, 'pages/profile.html')
 
 def api_profile(request):
-    user_id = request.user.id
-    posts = Post.objects.filter(uploader_id=user_id).select_related("uploader")
-    uploads = Uploads.objects.filter(uploader_id=user_id).select_related("uploader")
-
-    combined_data = list(chain(posts, uploads))
-    json_data = serializers.serialize('json', combined_data)
-
-    return HttpResponse(json_data, content_type="application/json;charset=UTF-8")
+    
+    posts = Post.objects.filter(uploader=request.user.id)
+    uploads = Uploads.objects.filter(uploader=request.user.id)
+    queryset = list(chain(posts, uploads))
+    data = serializers.serialize('json', queryset)
+    return HttpResponse(data, content_type="application/json;charset=UTF-8")

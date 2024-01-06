@@ -22,7 +22,7 @@ class Uploads(models.Model):
         (0, "inactive")
     )
 
-    post_id = models.IntegerField(null=False)
+    post = models.IntegerField(null=False)
     uploader = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     file_name = models.CharField(max_length=255, null=False)
     file_extension = models.CharField(max_length=30, null=False)

@@ -1,6 +1,19 @@
 .content{
    background: var(--color-white);
    padding-bottom: calc(var(--max-space) * 5);
+   opacity: var(--opacity-none);
+   transform: translateY(10%);
+   animation: contentSwipe var(--transition-slowest) ease 1 forwards;
+}
+@keyframes contentSwipe{
+    0%{
+        opacity: var(--opacity-none);
+        transform: translateY(10%);
+    }
+    100%{
+        opacity: var(--opacity-full);
+        transform: translateY(0);
+    }
 }
 .content_header{
     min-height: calc(var(--pixel) * 150);
@@ -21,4 +34,137 @@
 }
 .inner_content_bg{
     position: relative;
+}
+.page_loader {
+    display: -ms-flex;
+    display: flex;
+    justify-content: center;
+    padding: calc(var(--max-space) * 3) 0;
+}
+.page_spinner {
+    border: 2px solid;
+    border-color: var(--color-red) transparent transparent;
+    width: calc(var( --icon-size) * 2);
+    height: calc(var( --icon-size) * 2);
+    border-radius: calc(var( --percent) * 50);
+    filter: hue-rotate(0deg);
+    transform: rotate(0deg);
+    transition: var(--transition-medium) ease;
+    animation: pageSpinner var(--transition-slow) ease infinite;
+}
+@keyframes pageSpinner{
+    0%{
+        filter: hue-rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100%{
+        filter: hue-rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+.profile_top {
+    padding: var(--max-space) 0;
+}
+.profile_data_search_filter{
+    margin: var(--max-space) 0;
+    position: sticky;
+    top: 0;
+    background: var(--color-white);
+    z-index: calc(var(--value) * 10000);
+}
+.profile_data_search_filter input[type="text"] {
+    outline: none;
+    border: 0;
+    background: var(--color-white);
+    padding: var( --max-space);
+    font-size: var( --max-space);
+    border-bottom: 1px solid var(--color-light-grey);
+    width: 100%;
+    transition: var(--transition-fast) ease;
+}
+.profile_data_search_filter input[type="text"]:focus{
+    background: var(--focus-bg);
+}
+.profile_data_row {
+    margin-bottom: calc(var(--min-space) * 3);
+    padding-bottom: var(--max-space);
+}
+.profile_logged_in_as {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.profile_logged_in_as > div,
+.profile_logged_in_as > span{
+    margin-bottom: var(--max-space);
+}
+@media (max-width: 650px){
+    .profile_logged_in_as > div,
+    .profile_logged_in_as > span{
+        -ms-flex: 1 0 auto;
+        flex: 1 0 auto;
+        width: 100%;
+        text-align: center;
+    }
+}
+.profile_logged_in_as > span{
+    display: grid;
+}
+.profile_logged_in_as > span strong {
+    text-align: center;
+    padding: var(--min-space) var(--max-space);
+    border: 1px solid var(--color-dark-grey);
+    margin: var(--max-space) 0;
+}
+.profile_data_row_content{
+    display: grid;
+}
+.profile_data_title {
+    display: -ms-flex;
+    display: flex;
+    align-items: center;
+}
+.profile_data_title svg {
+    width: 100%;
+    height: 100%;
+    max-width: var(--icon-size);
+    max-height: var(--icon-size);
+    fill: var(--color-light-grey);
+    transform: scale(0.8);
+    transition: var(--transition-medium) ease;
+}
+.profile_data_title a:hover svg{
+    transform: scale(0.7);
+}
+.profile_data_row_content span{
+    padding: var(--min-space) 0;
+}
+.profile_data_row_media {
+    display: -ms-flex;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    overflow: hidden;
+    overflow-x: auto;
+}
+.profile_data_row_media::-webkit-scrollbar{
+    height: calc(var(--pixel) * 3);
+}
+.profile_data_row_media img{
+    -ms-flex: 1;
+    flex: 1;
+    min-width: calc(var(--pixel) * 150);
+    min-height: calc(var(--pixel) * 100);
+    max-width: calc(var(--pixel) * 150);
+    max-height: calc(var(--pixel) * 100);
+    margin-right: var(--min-space);
+    object-fit: cover;
+    object-position: center;
+    opacity: var(--opacity-dim);
+    border-radius: var(--min-space);
+    transition: var(--transition-fast) ease;
+}
+.profile_data_row_media img:hover{
+    opacity: var(--opacity-full);
 }

@@ -33,6 +33,12 @@
             </form>
         </section>
         <div id="pageWrapper">
+            {% if request.user.is_authenticated %}
+            <div class="page_misc">
+                <input type="hidden" name="globalUsername" value="{{ user.get_username }}">
+                <input type="hidden" name="globalUserId" value="{{ user.id }}">
+            </div>
+            {% endif %}
             <section class="menu">
                 <header id="siteHeader">
                     <div class="menu_top">
