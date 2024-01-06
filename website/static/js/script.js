@@ -5,6 +5,8 @@ window.addEventListener('DOMContentLoaded', () => {
     validateUploadForm();
     profileApiData();
     profileApiDataSearchFilter();
+    activeCurrentMenuLink();
+
 });
 
 const Constants = {
@@ -96,8 +98,6 @@ const profileApiData = () => {
         fetch(`${Constants.URL}/api-profile`)
         .then(res => res.json())
         .then(data => {
-
-            console.log(data);
 
             setTimeout(() => {
 
@@ -209,4 +209,25 @@ const generatePageSpinner = (element) => {
 
 const removePageSpinner = (element) => {
     return element.innerHTML = ``;
+}
+
+const activeCurrentMenuLink = () => {
+
+    const menuLink = document.querySelectorAll('header .menu_link > span');
+
+    if ( menuLink != undefined ) {
+        menuLink.forEach(link => {
+
+            let linkName = link.textContent.toLowerCase();
+            console.log(location.href.includes(linkName), linkName);
+
+            link.parentElement.parentElement.classList.remove('active_link');
+
+            if (linkName === 'home' && location.pathname === "/"){
+                link.parentElement.parentElement.classList.add('active_link');
+            } else if (location.href.includes(linkName)) {
+                link.parentElement.parentElement.classList.add('active_link');
+            }
+        });
+    }
 }

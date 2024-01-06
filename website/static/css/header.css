@@ -76,6 +76,9 @@ header ul li{
 header ul li:hover{
     background: var(--bg-light-grey);
 }
+header ul li.active_link{
+    background: var(--color-dark-grey);
+}
 header .menu_options ul {
     padding: calc(var(--percent) * 10) 0;
     border-top: 1px solid var(--bg-light-grey);
