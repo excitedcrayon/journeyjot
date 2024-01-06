@@ -67,6 +67,7 @@
                                         <span>Home</span>
                                     </a>
                                 </li>
+                                {% if request.user.is_authenticated %}
                                 <li>
                                     <a class="menu_link" href="#" title="Favorites">
                                         <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -75,7 +76,6 @@
                                         <span>Favorites</span>
                                     </a>
                                 </li>
-                                {% if request.user.is_authenticated %}
                                 <li>
                                     <a class="menu_link" href="{% url 'upload' %}" title="Upload">
                                         <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

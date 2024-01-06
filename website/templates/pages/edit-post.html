@@ -1,0 +1,36 @@
+{% extends 'base/template.html' %}
+{% block title %} Edit Post {% endblock title %}
+{% block body_data %}
+    {% for post in posts %}
+    <div class="content_header"><h1>Editing Post "{{ post.id }}"</h1></div>
+    {% endfor %}
+    <div class="inner_content inner_content_form">
+        {% for post in posts %}
+        <div class="form_wrapper">
+            <form id="editForm" method="POST">
+                {% csrf_token %}
+                <div>
+                    <label>Title</label>
+                    <input type="text" name="title" placeholder="Post Title" value="{{ post.title }}" required>
+                </div>
+                <div>
+                    <label>Description</label>
+                    <textarea name="description" cols="30" rows="10">{{ post.description }}</textarea>
+                </div>
+                <div class="form_button">
+                    <button class="btn" type="submit">Save</button>
+                    <a class="btn" href="{% url 'profile' %}">Cancel</a>
+                </div>
+            </form>
+        </div>
+        {% endfor %}
+        
+        {% if uploads %}
+            <div class="edit_post_media">
+                {% for upload in uploads %}
+                    <a href="/{{ upload.file_path }}" title="{{ upload.file_name }}" target="_blank">{{ upload.file_name }}</a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock body_data %}

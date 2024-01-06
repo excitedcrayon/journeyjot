@@ -128,8 +128,33 @@ def upload(request):
 def profile(request):
     return render(request, 'pages/profile.html')
 
+# profile edit post page
+@login_required(login_url='login')
+def profile_edit_post(request, id):
+
+    posts = Post.objects.filter(id=id).select_related("uploader")
+    uploads = Uploads.objects.filter(post=id).select_related("uploader")
+    context = { 'posts' : posts, 'uploads' : uploads }
+
+    # process edit form data
+    if request.method == "POST":
+        print(request.POST)
+
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+
+        Post.objects.filter(id=id).update(
+            title=title,
+            description=description
+        )
+
+        return redirect('profile')
+
+    return render(request, 'pages/edit-post.html', context=context)
+
+# api to get profile page data
 def api_profile(request):
-    
+
     posts = Post.objects.filter(uploader=request.user.id)
     uploads = Uploads.objects.filter(uploader=request.user.id)
     queryset = list(chain(posts, uploads))

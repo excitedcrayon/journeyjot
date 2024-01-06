@@ -14,5 +14,7 @@ urlpatterns = [
     
     path('profile', views.profile, name="profile"),
     
+    path('profile/edit-post/<int:id>', views.profile_edit_post, name="edit-post"),
+    
     path('api-profile', views.api_profile, name="api-profile")
 ]
