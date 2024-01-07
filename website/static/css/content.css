@@ -2,17 +2,17 @@
    background: var(--color-white);
    padding-bottom: calc(var(--max-space) * 5);
    opacity: var(--opacity-none);
-   transform: translateY(10%);
+   transform: translateY(5%);
    animation: contentSwipe var(--transition-slowest) ease 1 forwards;
 }
 @keyframes contentSwipe{
     0%{
         opacity: var(--opacity-none);
-        transform: translateY(10%);
+        transform: translateY(5%);
     }
     100%{
         opacity: var(--opacity-full);
-        transform: translateY(0);
+        transform: translateX(0);
     }
 }
 .content_header{

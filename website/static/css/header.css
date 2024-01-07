@@ -39,6 +39,26 @@ header .menu_top a{
     padding: 0 calc(var(--percent) * 5);
     transition: var(--transition-medium) linear;
 }
+header .menu_top a span{
+    position: relative;
+    padding-left: calc(var(--icon-size) * 1.5);
+}
+header .menu_top a span::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%) rotate(0deg);
+    transform-origin: center;
+    background: url('../../static/images/favicon.svg') no-repeat center;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    background-size: contain;
+    transition: var(--transition-medium) ease;
+}
+header .menu_top a:hover span::before{
+    transform: translateY(-50%) rotate(10deg);
+}
 header .menu_top a:hover{
     color: var(--color-red);
 }

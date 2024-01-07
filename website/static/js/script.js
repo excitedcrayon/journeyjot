@@ -138,27 +138,27 @@ const profileApiData = () => {
     
                     // media of the post
                     if ( model.includes('uploads') ) {
-    
+
                         let postId = data[i]['fields']['post'];
+
+                        let profileDataRowMedia = document.querySelectorAll('.profile_data_row_media');
+
+                        if ( data[i]['fields']['file_type'].includes('image') ) {
+                            let image = new Image();
+                            image.src = `${Constants.URL}/${data[i]['fields']['file_path']}`;
+                            profileDataRowMedia[postId - 1].appendChild(image);
     
-                        if ( postId == postPKMap.get(postId) ) {
+                        } else if ( data[i]['fields']['file_type'].includes('video') ) {
+                            let video = document.createElement('video');
+                            videosrc = `${Constants.URL}/${data[i]['fields']['file_path']}`;
+                            profileDataRowMedia[postId - 1].appendChild(video);
     
-                            if ( data[i]['fields']['file_type'].includes('image') ) {
-                                let image = new Image();
-                                image.src = `${Constants.URL}/${data[i]['fields']['file_path']}`;
-                                document.querySelector('.profile_data_row_media').appendChild(image);
-        
-                            } else if ( data[i]['fields']['file_type'].includes('video') ) {
-                                let video = document.createElement('video');
-                                videosrc = `${Constants.URL}/${data[i]['fields']['file_path']}`;
-                                document.querySelector('.profile_data_row_media').appendChild(video);
-        
-                            }    
                         } else {
-                            document.querySelector('.profile_data_row_media').innerHTML = '';
+                            profileDataRowMedia[postId - 1].innerHTML = '';
                         }
     
                     }
+
                 }
             }, Constants.INTERVAL);
         })
@@ -219,7 +219,6 @@ const activeCurrentMenuLink = () => {
         menuLink.forEach(link => {
 
             let linkName = link.textContent.toLowerCase();
-            console.log(location.href.includes(linkName), linkName);
 
             link.parentElement.parentElement.classList.remove('active_link');
 
