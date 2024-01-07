@@ -97,7 +97,7 @@ header ul li:hover{
     background: var(--bg-light-grey);
 }
 header ul li.active_link{
-    background: var(--color-dark-grey);
+    background: var(--color-light-grey);
 }
 header ul li.active_link svg circle, 
 header ul li.active_link svg path {

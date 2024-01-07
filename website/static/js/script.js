@@ -85,10 +85,12 @@ const validateUploadForm = () => {
 
 const profileApiData = () => {
 
+    const profileUploadedResultsCount = document.querySelector('.profile_uploaded_results_count');
     const profileUploadedData =  document.querySelector('.profile_uploaded_data');
     const userId = getGlobalUserId();
 
     let postPKMap = new Map();
+    let totalNumberOfPosts = [];
     let profileDataRow = undefined;
 
     if ( profileUploadedData != undefined ) {
@@ -98,8 +100,6 @@ const profileApiData = () => {
         fetch(`${Constants.URL}/api-profile`)
         .then(res => res.json())
         .then(data => {
-
-            console.log(data);
 
             setTimeout(() => {
 
@@ -111,6 +111,8 @@ const profileApiData = () => {
     
                     // title and description of posts
                     if ( model.includes('post') ){
+
+                        totalNumberOfPosts.push(data[i]);
     
                         postPKMap.set(data[i]['pk'], data[i]['pk']);
     
@@ -164,6 +166,11 @@ const profileApiData = () => {
                     }
 
                 }
+
+                profileUploadedResultsCount.innerHTML = `
+                    <span>Showing <strong>${totalNumberOfPosts.length}</strong> results</span>
+                `;
+
             }, Constants.INTERVAL);
         })
         .catch(err => console.log(err));

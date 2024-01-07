@@ -9,10 +9,10 @@ urlpatterns = [
     path('register', views.register, name="register"),
 
     path('logout', views.logout, name="logout"),
+
+    path('upload', views.upload, name="upload"),
     
     path('profile', views.profile, name="profile"),
-
-    path('profile/upload', views.profile_upload, name="upload"),
     
     path('profile/edit-post/<int:id>', views.profile_edit_post, name="edit-post"),
     

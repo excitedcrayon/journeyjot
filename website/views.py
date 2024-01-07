@@ -64,14 +64,9 @@ def logout(request):
 
     return redirect('/')
 
-# profile page
-@login_required(login_url='login')
-def profile(request):
-    return render(request, 'pages/profile.html')
-
 # upload functionality
 @login_required(login_url='login')
-def profile_upload(request):
+def upload(request):
 
     if request.method == "POST":
 
@@ -127,6 +122,11 @@ def profile_upload(request):
         uploadForm = UploadForm()
 
     return render(request, 'pages/upload.html')
+
+# profile page
+@login_required(login_url='login')
+def profile(request):
+    return render(request, 'pages/profile.html')
 
 # profile edit post page
 @login_required(login_url='login')
