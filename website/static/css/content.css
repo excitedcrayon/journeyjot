@@ -154,6 +154,7 @@
 }
 .profile_data_row_content span{
     padding: var(--min-space) 0;
+    white-space: pre-wrap;
 }
 .profile_data_row_media {
     display: -ms-flex;

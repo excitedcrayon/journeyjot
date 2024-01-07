@@ -20,5 +20,7 @@ urlpatterns = [
     
     path('profile/restore-post/<int:id>', views.profile_restore_post, name="restore-post"),
     
-    path('api-profile', views.api_profile, name="api-profile")
+    path('api-profile', views.api_profile, name="api-profile"),
+    
+    path('api-homepage', views.api_homepage, name="api-homepage")
 ]

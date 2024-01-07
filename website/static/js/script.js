@@ -90,8 +90,11 @@ const profileApiData = () => {
     const userId = getGlobalUserId();
 
     let postPKMap = new Map();
+    let uploadsMap = new Map();
     let totalNumberOfPosts = [];
     let profileDataRow = undefined;
+    let profileDataRowMediaSet = undefined;
+    let counter = 0;
 
     if ( profileUploadedData != undefined ) {
 
@@ -120,6 +123,7 @@ const profileApiData = () => {
     
                         profileDataRow = document.createElement('div');
                         profileDataRow.className = 'profile_data_row';
+                        profileDataRow.setAttribute('data-post-id', `${data[i]['pk']}`);
                         profileDataRow.innerHTML = `
                             <div class="profile_data_row_content">
                                 <div class="profile_data_title">
@@ -145,29 +149,48 @@ const profileApiData = () => {
                     // media of the post
                     if ( model.includes('uploads') ) {
 
-                        let postId = data[i]['fields']['post'];
+                        let uploadKey = data[i]['fields']['post'];
 
-                        let profileDataRowMedia = document.querySelectorAll('.profile_data_row_media');
-
-                        if ( data[i]['fields']['file_type'].includes('image') ) {
-                            let image = new Image();
-                            image.src = `${Constants.URL}/${data[i]['fields']['file_path']}`;
-                            profileDataRowMedia[postId - 1].appendChild(image);
-    
-                        } else if ( data[i]['fields']['file_type'].includes('video') ) {
-                            let video = document.createElement('video');
-                            video.src = `${Constants.URL}/${data[i]['fields']['file_path']}`;
-                            video.setAttribute('controls','controls');
-                            video.setAttribute('controlsList','nodownload');
-                            profileDataRowMedia[postId - 1].appendChild(video);
-    
-                        } else {
-                            profileDataRowMedia[postId - 1].innerHTML = '';
+                        if ( !uploadsMap.has(uploadKey) ) {
+                            uploadsMap.set(uploadKey, []);
                         }
+
+                        uploadsMap.get(data[i]['fields']['post']).push(data[i]['fields']['file_path']);
+
+                        profileDataRowMediaSet = Array.from(new Set([...document.querySelectorAll('.profile_data_row_media')]));
     
                     }
 
                 }
+
+                //console.log(profileDataRowMediaSet);
+                //console.log(uploadsMap);
+
+                const profileDataRows = document.querySelectorAll('.profile_data_row');
+                profileDataRows.forEach(dataRow => {
+                    let dataPostId = parseInt(dataRow.getAttribute('data-post-id'));
+                    if ( uploadsMap.get(dataPostId) ){
+                        //console.log(dataRow);
+                        uploadsMap.forEach((values, key) => {
+                            if (dataPostId === key) {
+                                for(let j = 0; j < values.length; j++){
+                                    //console.log(values[j]);
+                                    if ( !values[j].includes('.mp4') ){
+                                        let image = new Image();
+                                        image.src = `${Constants.URL}/${values[j]}`;
+                                        dataRow.childNodes[3].appendChild(image);
+                                    } else if (values[j].includes('.mp4')) {
+                                        let video = document.createElement('video');
+                                        video.src = `${Constants.URL}/${values[j]}`;
+                                        video.setAttribute('controls', 'controls');
+                                        video.setAttribute('controlsList','nodownload');
+                                        dataRow.childNodes[3].appendChild(video);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
 
                 profileUploadedResultsCount.innerHTML = `
                     <span>Showing <strong>${totalNumberOfPosts.length}</strong> results</span>
