@@ -99,6 +99,8 @@ const profileApiData = () => {
         .then(res => res.json())
         .then(data => {
 
+            console.log(data);
+
             setTimeout(() => {
 
                 removePageSpinner(profileUploadedData);
@@ -150,7 +152,9 @@ const profileApiData = () => {
     
                         } else if ( data[i]['fields']['file_type'].includes('video') ) {
                             let video = document.createElement('video');
-                            videosrc = `${Constants.URL}/${data[i]['fields']['file_path']}`;
+                            video.src = `${Constants.URL}/${data[i]['fields']['file_path']}`;
+                            video.setAttribute('controls','controls');
+                            video.setAttribute('controlsList','nodownload');
                             profileDataRowMedia[postId - 1].appendChild(video);
     
                         } else {

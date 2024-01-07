@@ -157,7 +157,8 @@
 .profile_data_row_media::-webkit-scrollbar{
     height: calc(var(--pixel) * 3);
 }
-.profile_data_row_media img{
+.profile_data_row_media img,
+.profile_data_row_media video{
     -ms-flex: 1;
     flex: 1;
     min-width: calc(var(--pixel) * 150);
@@ -172,6 +173,10 @@
     transition: var(--transition-fast) ease;
 }
 .profile_data_row_media img:hover{
+    opacity: var(--opacity-full);
+}
+.profile_data_row_media video:hover{
+    cursor: pointer;
     opacity: var(--opacity-full);
 }
 .edit_post_media {
