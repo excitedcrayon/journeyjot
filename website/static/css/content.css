@@ -65,6 +65,9 @@
 .profile_top {
     padding: var(--max-space) 0;
 }
+.profile_uploaded_results_count{
+    width: max-content;
+}
 .profile_uploaded_results_count span {
     border: 1px solid var(--color-dark-grey);
     padding: calc(var(--min-space) * 2) var(--max-space);

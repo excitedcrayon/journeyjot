@@ -180,3 +180,7 @@ def api_profile(request):
     queryset = list(chain(posts, uploads))
     data = serializers.serialize('json', queryset)
     return HttpResponse(data, content_type="application/json;charset=UTF-8")
+
+# api to get homepage data
+def api_homepage(request):
+    pass

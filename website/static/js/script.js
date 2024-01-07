@@ -96,6 +96,7 @@ const profileApiData = () => {
     if ( profileUploadedData != undefined ) {
 
         generatePageSpinner(profileUploadedData);
+        generatePageSpinner(profileUploadedResultsCount);
 
         fetch(`${Constants.URL}/api-profile`)
         .then(res => res.json())
@@ -104,6 +105,7 @@ const profileApiData = () => {
             setTimeout(() => {
 
                 removePageSpinner(profileUploadedData);
+                removePageSpinner(profileUploadedResultsCount);
 
                 for(let i = 0; i < data.length; i++){
 
