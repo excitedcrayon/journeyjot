@@ -74,7 +74,7 @@ const validateUploadForm = () => {
 
     if ( uploadFormButton != undefined ) {
         uploadFile.addEventListener('change', (e) => {
-            console.log(e.target.files);
+            //console.log(e.target.files);
         });
 
         uploadFormButton.addEventListener('click', (e) => {
