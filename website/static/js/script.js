@@ -7,6 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
     profileApiDataSearchFilter();
     activeCurrentMenuLink();
     homepage();
+    loadInitialHomepageData();
 
 });
 
@@ -15,7 +16,8 @@ let Constants = {
     INTERVAL: 1000,
     start: 0,
     end: 5,
-    increment: 5
+    increment: 5,
+    keepScrolling: true
 }
 
 const getGlobalUserId = () => {
@@ -279,25 +281,28 @@ const activeCurrentMenuLink = () => {
     }
 }
 
+const loadInitialHomepageData = () => {
+    homepageApiData(Constants.start, Constants.end, Constants.keepScrolling);
+}
+
 const homepage = () => {
 
     const homepageContent = document.querySelector('.homepage_content');
 
     if ( homepageContent != undefined ) {
 
-        homepageApiData(Constants.start, Constants.end);
-
         window.addEventListener('scroll', () => {
 
             const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-            if ( scrollTop + clientHeight >= (scrollHeight - 3/4) ) {
+            // if ( scrollTop + clientHeight >= (scrollHeight - 3/4) ) {
+            if ( (window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight - 3/4) ) {
 
                 Constants.start += Constants.increment;
-                Constants.end += Constants.end;
+                Constants.end += Constants.increment;
 
                 setTimeout(() => {
-                    homepageApiData(Constants.start, Constants.end);
+                    homepageApiData(Constants.start, Constants.end, Constants.keepScrolling);
                 }, Constants.INTERVAL);
             } 
         });
@@ -305,16 +310,18 @@ const homepage = () => {
     }
 }
 
-const homepageApiData = (start, end) => {
+const homepageApiData = (start, end, keepScrolling) => {
 
     const homepageContent = document.querySelector('.homepage_content');
     const pageLoaderElement = pageLoader();
     let postMap = new Map();
     let postUploadMap = new Map();
 
-    if ( homepageContent != undefined ) {
+    if ( homepageContent != undefined && Constants.keepScrolling ) {
         homepageContent.appendChild(pageLoaderElement);
     }
+
+    if ( keepScrolling ) {
 
     fetch(`${Constants.URL}/api-homepage?` + new URLSearchParams({
         limitStart: start,
@@ -327,19 +334,23 @@ const homepageApiData = (start, end) => {
             Constants.start = 0;
             Constants.end = 0;
             Constants.increment = 0;
+            Constants.keepScrolling = false;
         }
 
         setTimeout(() => {
             if ( homepageContent != undefined ) {
                 homepageContent.removeChild(pageLoaderElement);
             }
-        }, Constants.INTERVAL)
+        }, Constants.INTERVAL);
 
         if (data.length > 0){
 
             setTimeout(() => {
 
                 for(let i = 0; i < data.length; i++){
+
+                    //console.log(data[i]['pk']);
+
                     let model = data[i]['model'];
 
                     // posts
@@ -436,4 +447,5 @@ const homepageApiData = (start, end) => {
 
     })
     .catch(err => console.log(err));
+    } 
 }
