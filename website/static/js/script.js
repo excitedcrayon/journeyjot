@@ -10,9 +10,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 });
 
-const Constants = {
+let Constants = {
     URL: location.origin,
-    INTERVAL: 1000
+    INTERVAL: 1000,
+    start: 0,
+    end: 5,
+    increment: 5
 }
 
 const getGlobalUserId = () => {
@@ -279,26 +282,22 @@ const activeCurrentMenuLink = () => {
 const homepage = () => {
 
     const homepageContent = document.querySelector('.homepage_content');
-    let start = 0;
-    let end = 10;
-    let increment = 10;
 
     if ( homepageContent != undefined ) {
 
-        homepageApiData(start, end);
+        homepageApiData(Constants.start, Constants.end);
 
         window.addEventListener('scroll', () => {
 
             const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
             if ( scrollTop + clientHeight >= (scrollHeight - 3/4) ) {
-                //console.log('Reached bottom of page');
 
-                start += increment;
-                end += increment;
+                Constants.start += Constants.increment;
+                Constants.end += Constants.end;
 
                 setTimeout(() => {
-                    homepageApiData(start, end);
+                    homepageApiData(Constants.start, Constants.end);
                 }, Constants.INTERVAL);
             } 
         });
@@ -310,6 +309,8 @@ const homepageApiData = (start, end) => {
 
     const homepageContent = document.querySelector('.homepage_content');
     const pageLoaderElement = pageLoader();
+    let postMap = new Map();
+    let postUploadMap = new Map();
 
     if ( homepageContent != undefined ) {
         homepageContent.appendChild(pageLoaderElement);
@@ -322,15 +323,21 @@ const homepageApiData = (start, end) => {
     .then(res => res.json())
     .then(data => {
 
-        console.log(data);
+        if (data.length === 0) {
+            Constants.start = 0;
+            Constants.end = 0;
+            Constants.increment = 0;
+        }
+
+        setTimeout(() => {
+            if ( homepageContent != undefined ) {
+                homepageContent.removeChild(pageLoaderElement);
+            }
+        }, Constants.INTERVAL)
 
         if (data.length > 0){
 
             setTimeout(() => {
-
-                if ( homepageContent != undefined ) {
-                    homepageContent.removeChild(pageLoaderElement);
-                }
 
                 for(let i = 0; i < data.length; i++){
                     let model = data[i]['model'];
@@ -344,10 +351,18 @@ const homepageApiData = (start, end) => {
                         post.innerHTML = `
                             <div class="post_content">
                                 <div class="post_media"></div>
-                                <div class="post_title">${data[i]['fields']['title'].length > 0 ? data[i]['fields']['title'] : ''}</div>
-                                <div class="post_description">${data[i]['fields']['description'].length > 0 ? data[i]['fields']['description'] : ''}</div>
+                                <div class="post_title"></div>
+                                <div class="post_description"></div>
                             </div>
                         `;
+
+                        let postKey = data[i]['pk'];
+
+                        if ( !postMap.has(postKey) ) {
+                            postMap.set(postKey, []);
+                        }
+
+                        postMap.get(postKey).push(data[i]['fields']['title'],data[i]['fields']['description']);
 
                         if ( homepageContent != undefined ) {
                             homepageContent.appendChild(post);
@@ -357,12 +372,64 @@ const homepageApiData = (start, end) => {
 
                     // uploads
                     if ( model.includes('uploads') ) {
+
                         let uploadKey = data[i]['fields']['post'];
 
-                        console.log(uploadKey);
+                        if ( !postUploadMap.has(uploadKey) ) {
+                            postUploadMap.set(uploadKey, []);
+                        }
+
+                        postUploadMap.get(uploadKey).push(data[i]['fields']['file_path']);
+
                     }
 
                 }
+
+
+                // match the media to the post
+                const posts = document.querySelectorAll('.post');
+                posts.forEach(post => {
+
+                    let postMediaElement = post.childNodes[1].childNodes[1];
+                    let postTitle = post.childNodes[1].childNodes[3];
+                    let postDescription = post.childNodes[1].childNodes[5];
+
+                    let dataPostId = parseInt(post.getAttribute('data-post-id'));
+
+                    // posts
+                    if ( postMap.get(dataPostId) ) {
+                        postMap.forEach((values, key) => {
+                            if ( dataPostId === key ){
+                                for ( let p = 0; p < values.length; p++ ){
+                                    postTitle.textContent = values[0];
+                                    postDescription.textContent = values[1];
+                                }
+                            }
+                        });
+                    }
+
+                    // media
+                    if ( postUploadMap.get(dataPostId) ) {
+                        postUploadMap.forEach((values, key) => {
+                            if ( dataPostId === key ) {
+                                for (let i = 0; i < values.length; i++){
+                                    if ( !values[i].includes('.mp4') ) {
+                                        let image = new Image();
+                                        image.src = `${Constants.URL}/${values[i]}`;
+                                        postMediaElement.appendChild(image);
+                                    } else if ( values[i].includes('.mp4') ) {
+                                        let video = document.createElement('video');
+                                        video.src = `${Constants.URL}/${values[i]}`;
+                                        video.setAttribute('controls', 'controls');
+                                        video.setAttribute('controlsList','nodownload');
+                                        postMediaElement.appendChild(video);
+                                    }
+                                }
+                            }
+                        })
+                    }
+
+                });
 
             }, Constants.INTERVAL);
         }

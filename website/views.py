@@ -192,8 +192,8 @@ def api_homepage(request):
         int_start = int(start)
         int_end = int(end)
 
-        posts = Post.objects.filter(post_status=1)[int_start:int_end]
-        uploads = Uploads.objects.filter(file_status=1)[int_start:int_end]
+        posts = Post.objects.filter(post_status=1).order_by('-id')[int_start:int_end]
+        uploads = Uploads.objects.filter(file_status=1).order_by('-id')[int_start:int_end]
         
         queryset = list(chain(posts, uploads))
         
