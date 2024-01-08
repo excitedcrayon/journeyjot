@@ -183,8 +183,20 @@ def api_profile(request):
 
 # api to get homepage data
 def api_homepage(request):
-    posts = Post.objects.filter(uploader=request.user.id).order_by('-id')
-    uploads = Uploads.objects.filter(uploader=request.user.id).order_by('-id')
-    queryset = list(chain(posts, uploads))
-    data = serializers.serialize('json', queryset)
-    return HttpResponse(data, content_type="application/json;charset=UTF-8")
+
+    if request.method == "GET":
+
+        start = request.GET.get('limitStart')
+        end = request.GET.get('limitEnd')
+        
+        int_start = int(start)
+        int_end = int(end)
+
+        posts = Post.objects.filter(post_status=1)[int_start:int_end]
+        uploads = Uploads.objects.filter(file_status=1)[int_start:int_end]
+        
+        queryset = list(chain(posts, uploads))
+        
+        data = serializers.serialize('json', queryset)
+        
+        return HttpResponse(data, content_type="application/json;charset=UTF-8")

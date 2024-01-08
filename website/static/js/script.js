@@ -6,6 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
     profileApiData();
     profileApiDataSearchFilter();
     activeCurrentMenuLink();
+    homepage();
 
 });
 
@@ -87,7 +88,6 @@ const profileApiData = () => {
 
     const profileUploadedResultsCount = document.querySelector('.profile_uploaded_results_count');
     const profileUploadedData =  document.querySelector('.profile_uploaded_data');
-    const userId = getGlobalUserId();
 
     let postPKMap = new Map();
     let uploadsMap = new Map();
@@ -247,6 +247,15 @@ const removePageSpinner = (element) => {
     return element.innerHTML = ``;
 }
 
+const pageLoader = () => {
+    const element = document.createElement('div');
+    element.className = 'page_loader';
+    element.innerHTML = `
+        <div class="page_spinner"></div>
+    `;
+    return element;
+}
+
 const activeCurrentMenuLink = () => {
 
     const menuLink = document.querySelectorAll('header .menu_link > span');
@@ -265,4 +274,99 @@ const activeCurrentMenuLink = () => {
             }
         });
     }
+}
+
+const homepage = () => {
+
+    const homepageContent = document.querySelector('.homepage_content');
+    let start = 0;
+    let end = 10;
+    let increment = 10;
+
+    if ( homepageContent != undefined ) {
+
+        homepageApiData(start, end);
+
+        window.addEventListener('scroll', () => {
+
+            const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+            if ( scrollTop + clientHeight >= (scrollHeight - 3/4) ) {
+                //console.log('Reached bottom of page');
+
+                start += increment;
+                end += increment;
+
+                setTimeout(() => {
+                    homepageApiData(start, end);
+                }, Constants.INTERVAL);
+            } 
+        });
+
+    }
+}
+
+const homepageApiData = (start, end) => {
+
+    const homepageContent = document.querySelector('.homepage_content');
+    const pageLoaderElement = pageLoader();
+
+    if ( homepageContent != undefined ) {
+        homepageContent.appendChild(pageLoaderElement);
+    }
+
+    fetch(`${Constants.URL}/api-homepage?` + new URLSearchParams({
+        limitStart: start,
+        limitEnd: end
+    }))
+    .then(res => res.json())
+    .then(data => {
+
+        console.log(data);
+
+        if (data.length > 0){
+
+            setTimeout(() => {
+
+                if ( homepageContent != undefined ) {
+                    homepageContent.removeChild(pageLoaderElement);
+                }
+
+                for(let i = 0; i < data.length; i++){
+                    let model = data[i]['model'];
+
+                    // posts
+                    if ( model.includes('post') ){
+
+                        let post = document.createElement('div');
+                        post.className = 'post';
+                        post.setAttribute(`data-post-id`,`${data[i]['pk']}`);
+                        post.innerHTML = `
+                            <div class="post_content">
+                                <div class="post_media"></div>
+                                <div class="post_title">${data[i]['fields']['title'].length > 0 ? data[i]['fields']['title'] : ''}</div>
+                                <div class="post_description">${data[i]['fields']['description'].length > 0 ? data[i]['fields']['description'] : ''}</div>
+                            </div>
+                        `;
+
+                        if ( homepageContent != undefined ) {
+                            homepageContent.appendChild(post);
+                        }
+
+                    }
+
+                    // uploads
+                    if ( model.includes('uploads') ) {
+                        let uploadKey = data[i]['fields']['post'];
+
+                        console.log(uploadKey);
+                    }
+
+                }
+
+            }, Constants.INTERVAL);
+        }
+
+    })
+    .catch(err => console.log(err));
 }
