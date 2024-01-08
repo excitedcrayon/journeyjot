@@ -160,6 +160,10 @@ def profile_archive_post(request, id):
         post_status=0
     )
 
+    Uploads.objects.filter(post=id).update(
+        file_status=0
+    )
+
     return redirect('profile')
 
 # profile restore post 
@@ -168,6 +172,10 @@ def profile_restore_post(request, id):
 
     Post.objects.filter(id=id).update(
         post_status=1
+    )
+
+    Uploads.objects.filter(post=id).update(
+        file_status=1
     )
 
     return redirect('profile')

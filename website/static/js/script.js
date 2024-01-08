@@ -17,7 +17,8 @@ let Constants = {
     start: 0,
     end: 5,
     increment: 5,
-    keepScrolling: true
+    keepScrolling: true,
+    sliderCounter: 0
 }
 
 const getGlobalUserId = () => {
@@ -295,8 +296,8 @@ const homepage = () => {
 
             const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-            // if ( scrollTop + clientHeight >= (scrollHeight - 3/4) ) {
-            if ( (window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight - 3/4) ) {
+            if ( scrollTop + clientHeight >= (scrollHeight - 2/4) ) {
+            //if ( (window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight * 0.75) ) {
 
                 Constants.start += Constants.increment;
                 Constants.end += Constants.increment;
@@ -413,7 +414,9 @@ const homepageApiData = (start, end, keepScrolling) => {
                             if ( dataPostId === key ){
                                 for ( let p = 0; p < values.length; p++ ){
                                     postTitle.textContent = values[0];
-                                    postDescription.textContent = values[1];
+                                    if ( values[1].length >= 50 ) {
+                                        postDescription.textContent = `${values[1].substring(0, 50)} ... `;
+                                    }
                                 }
                             }
                         });
@@ -424,16 +427,22 @@ const homepageApiData = (start, end, keepScrolling) => {
                         postUploadMap.forEach((values, key) => {
                             if ( dataPostId === key ) {
                                 for (let i = 0; i < values.length; i++){
+                                    let postSlider = document.createElement('div');
+                                    postSlider.className = 'post_slider';
+                                    // postSlider.style.left = `${i * 100}%`;
+                                    // console.log(postSlider, i);
                                     if ( !values[i].includes('.mp4') ) {
                                         let image = new Image();
                                         image.src = `${Constants.URL}/${values[i]}`;
-                                        postMediaElement.appendChild(image);
+                                        postSlider.appendChild(image);
+                                        postMediaElement.appendChild(postSlider);
                                     } else if ( values[i].includes('.mp4') ) {
                                         let video = document.createElement('video');
                                         video.src = `${Constants.URL}/${values[i]}`;
                                         video.setAttribute('controls', 'controls');
                                         video.setAttribute('controlsList','nodownload');
-                                        postMediaElement.appendChild(video);
+                                        postSlider.appendChild(video);
+                                        postMediaElement.appendChild(postSlider);
                                     }
                                 }
                             }
@@ -449,3 +458,15 @@ const homepageApiData = (start, end, keepScrolling) => {
     .catch(err => console.log(err));
     } 
 }
+
+setTimeout(() => {
+    console.log(Constants.sliderCounter);
+    Constants.sliderCounter += 1;
+    console.log(Constants.sliderCounter);
+    console.log(document.querySelectorAll('.post_content'));
+    const postContent = document.querySelectorAll('.post_content .post_media');
+    postContent.forEach(post => {
+        let children = post.children;
+        console.log(children, children.length);
+    });
+}, Constants.INTERVAL * 3);
